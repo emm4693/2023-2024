@@ -1,0 +1,39 @@
+unsigned long ledTimer; // Declare an unsigned long named ledTimer
+unsigned long ledTimer3;
+
+// Entering setup
+void setup()
+{
+ pinMode( 13, OUTPUT ); // Setting LED pin 13 to output
+ ledTimer = millis(); // Start recording value of millis into the variable ledTimer
+ pinMode( 12, OUTPUT ); // Setting LED pin 12 to output
+ ledTimer3 = millis(); // Start recording value of millis for ledTimer3
+} // End of setup
+// Starting loop process
+void loop()
+{
+ if( millis() - ledTimer >= 1000 )
+ { // if timer is greater than or equal to 1000 millis than run this
+  if( digitalRead( 13 ) == HIGH )
+  { // if LED is on, run this
+    digitalWrite( 13, LOW ); // turn off LED
+  }
+ else
+  { // if LED isn't on, run this
+    digitalWrite( 13, HIGH );
+  } // end of else statement turning on LED
+ ledTimer += 1000; // after running, add 1000 millis to timer, allowing for cycle to continue every 1000 millis
+ } // End of if ledTimer greater than or equal to 1000
+ if( millis() - ledTimer3 >= 3000 )
+ { // if ledTimer3 greater than or equal to 3000 millis
+   if( digitalRead( 12 ) == HIGH )
+   { // if 12 is on HIGH
+     digitalWrite( 12, LOW ); // turn off pin 12
+   } 
+   else
+   { // if pin 12 isn't on high
+     digitalWrite( 12, HIGH );
+   } // end of else statement turning pin 12 to high
+  ledTimer3 += 3000; // adds 3000 millis to timer
+ } //end of pin 12 output
+} // End of loop
