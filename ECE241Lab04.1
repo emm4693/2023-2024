@@ -1,0 +1,17 @@
+char alpha = 'A';
+unsigned long timer;
+
+void setup()
+{
+  Serial.begin( 38400 );  // Set the baud rate to 38400 bps
+  timer = millis();
+}
+
+void loop()
+{
+  if ( millis() - timer >= 5 )  // Send 'Z' every 5 milliseconds
+  {
+    Serial.print( 'Z' );
+    timer += 5;  // Reset the timer
+  }
+}
