@@ -1,0 +1,45 @@
+#include <LiquidCrystal.h> //import file from arduino file
+LiquidCrystal LcdDriver( A5, A4, 5, 6, 7, 8 ); //define pins to use
+unsigned long timer; //assign unsigned long timer
+unsigned long stopWatch; //assign unsigned long stopWatch
+int count; //create integer count
+int count2; //create integer count2
+
+void setup()
+{
+  LcdDriver.begin( 16, 2 ); // 16 columns by 2 rows LCD screen
+  LcdDriver.clear(); //clearing display
+  count = 0; //assigning count to 0
+  count2 = 0; //assigning count2 to 0
+  timer = millis(); //assigning timer to millis counter
+  stopWatch = millis(); //assigning stopWatch to millis counter
+}
+
+void loop()
+{
+  if ( millis() - timer >= 1000 ) //if timer greater than or equal to 1000 millis (1 second)
+  {
+    count++; //increasing count
+    LcdDriver.clear();
+    LcdDriver.setCursor( 0,0 ); //setting display to 0,0 on LcdDriver screen
+    LcdDriver.print( count ); //printing count integer
+    timer += 1000; //increase timer by 1000 millis (1 second)
+  }
+  if ( millis() - stopWatch >= 100 ) //if timer greater than or equal to 100 millis (.1 second)
+  {
+    if ( digitalRead( 4 ) == HIGH ) //if digitalRead 4 read high //if encoder pushed down
+    {
+      count2 = 0; //set count2 to 0
+    }
+    else
+    {
+      count2++; //increase count2
+      LcdDriver.clear(); //clear display
+      LcdDriver.setCursor( 0,0 ); //set cursor to 0,0 on LcdDriver screen
+      LcdDriver.print( count ); //print count at location
+      LcdDriver.setCursor( 0,1 ); //move location to 0,1 on LcdDriver screen
+      LcdDriver.print( count2 ); //print count2 at new location
+    }
+    stopWatch += 100; //increase stopWatch value by 100 millis (.1 second)
+  }
+}
