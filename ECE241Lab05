@@ -1,0 +1,24 @@
+#include <LiquidCrystal.h> //importing file name from arduino
+LiquidCrystal LcdDriver( A5, A4, 5, 6, 7, 8 ); //define pins to use
+unsigned long timer; //creating unsigned long "timer"
+int count; //creator integer "count"
+
+void setup()
+{
+  LcdDriver.begin( 16, 2 ); //16 columns by 2 rows LCD screen
+  LcdDriver.clear(); // clear display
+  count = 0; //setting count to 0
+  timer = millis(); //assigning timer to millis function
+}
+
+void loop()
+{
+  if ( millis() - timer >= 1000 ) //if timer greater than or equal to 1000 millis (1 second)
+  {
+    count++; //increase count
+    LcdDriver.clear();
+    LcdDriver.setCursor( 0,0 ); //Setting display to 0,0 on LcdDriver
+    LcdDriver.print( count ); //printing count at that location
+    timer += 1000; //increase timer by 1000 millis (1 second)
+  }
+}
